@@ -1,15 +1,13 @@
 " Configuring Vundle
 "
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'godlygeek/tabular'
-" Plugin 'preservim/vim-markdown'
-Plugin 'OmniSharp/omnisharp-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/vim-easy-align'
+Plug 'OmniSharp/omnisharp-vim'
 
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 "
 " End Configuring Vundle
@@ -17,27 +15,26 @@ filetype plugin indent on
 " Configuring Basics
 "
 set ttimeout ttimeoutlen=15
-set nocompatible
 set encoding=utf-8
+set scrolloff=4
+
+set showcmd
+set nocompatible
 
 scriptencoding utf-8
 syntax on
 "
 " End Configuring Basics
 
-" Configuring Macro and Hotkeys
+" Configuring Netrw
 "
-nnoremap <F1> "=strftime("%F")<CR>P
-nnoremap <NL> i<CR><ESC>
+let g:netrw_banner       = 0
+let g:netrw_keepdir      = 0
+let g:netrw_winsize      = 30
+let g:netrw_browse_split = 0
+let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 "
-" End Configuring Macro and Hotkeys
-
-" Configuring Vim-Markdown
-"
-let g:vim_markdown_folding_disabled = 1
-"autocmd FileType markdown setlocal formatoptions-=o formatoptions-=r
-"
-" End Configuring Vim-Markdown
+" End Configuring Netrw
 
 " Configuring OmniShart
 "
@@ -49,26 +46,58 @@ let g:OmniSharp_server_stdio    = 1
 "
 " End Configuring OmniSharp
 
+" Configuring Macro and Hotkeys
+"
+nnoremap ga          <Plug>(EasyAlign)
+nnoremap <F1>        "=strftime("%F")<CR>P
+nnoremap <leader>f   :Ex<CR>
+nnoremap <NL>        i<CR><ESC>
+inoremap <expr><C-@> coc#refresh()
+inoremap <expr>j     coc#pum#visible() ? coc#pum#next(1) : "\j"
+inoremap <expr>k     coc#pum#visible() ? coc#pum#prev(1) : "\k"
+inoremap <expr><CR>  coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+"
+" End Configuring Macro and Hotkeys
+
+" Configuring Markdown
+"
+"(setting up syntax highlight in markdown)
+let g:markdown_fenced_languages = [
+      \ 'c', 'cs', 'cpp',
+      \ 'json', 'graphql',
+      \]
+" End Configuring Markdown
+
 " Configuring Russian Keyboard
 "
 "(enable keymap for Mac - Russian)
-set keymap=russian-jcukenmac 
+set keymap=russian-jcukenmac
 set iminsert=0
 set imsearch=0
 
 "(map SHIFT+OPTIONS+1 - reverse ! to |)
 inoremap ⁄ \| 
+"(map SHIFT+OPTIONS+8 - degree    to *)
+inoremap ° *
+"(map SHIFT+OPTIONS+3 - left      to #)
+inoremap ‹ #
 "
 " End Configuring Russian Keyboard
 
 " Configuring Formatting
 "
-"(recognise numbered lists -- n -- and break long lines -- t --)
-set formatoptions+=nt
+set shiftwidth=2
+set tabstop=2
+
 set autoindent
 set smartindent
-set textwidth=82
-set shiftwidth=2
 set expandtab
 "
-" End Configuring TextWidth
+"(recognise .txt files like markdown)
+autocmd FileType text 
+      \   setlocal filetype=markdown
+      \ | setlocal syntax=markdown
+      \ | setlocal formatoptions=tcqln 
+      \ | setlocal textwidth=82 
+"
+" End Configuring Formatting
