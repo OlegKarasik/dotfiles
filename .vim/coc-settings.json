@@ -1,0 +1,9 @@
+{
+  "suggest.autoTrigger": "none",
+  "diagnostic.enableMessage": "jump",
+  "semanticTokens.enable": true,
+  "semanticTokens.filetypes": ["c", "cpp"],
+  "clangd.compilationDatabasePath": "build",
+  "floatFactory.floatConfig.border": true,
+  "floatFactory.floatConfig.rounded": true
+}
