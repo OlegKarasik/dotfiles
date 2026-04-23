@@ -2,7 +2,8 @@
   "suggest.autoTrigger": "none",
   "diagnostic.enableMessage": "jump",
   "semanticTokens.enable": true,
-  "semanticTokens.filetypes": ["c", "cpp"],
+  "semanticTokens.filetypes": ["c", "cpp", "cs"],
+  "coc.preferences.semanticTokensHighlights": true,
   "clangd.compilationDatabasePath": "build",
   "floatFactory.floatConfig.border": true,
   "floatFactory.floatConfig.rounded": true

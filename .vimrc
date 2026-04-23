@@ -100,7 +100,7 @@ autocmd FileType text
       \ | setlocal syntax=markdown
 
 " (configure settings for code files)
-autocmd FileType cpp 
+autocmd FileType cpp,cs 
       \ :runtime! ftplugin/programming.vim 
 "
 " End Configuring Formatting

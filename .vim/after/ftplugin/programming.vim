@@ -28,9 +28,13 @@ nnoremap <silent>         <leader>q   :<C-u>copen<CR>
 nnoremap <silent>         <leader>Q   :<C-u>ccl<CR>
 nnoremap <silent>         [q          :<C-u>cprev<CR>
 nnoremap <silent>         ]q          :<C-u>cnext<CR>
+nnoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
+nnoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
+inoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
+inoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
 inoremap <silent><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><expr>   <Esc>       coc#pum#visible() ? coc#pum#cancel()  : "\<Esc>"
-inoremap <silent>         <C-I>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
+inoremap <silent><expr>   <Esc>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<Esc>"
+inoremap <silent>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
 inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1)   : coc#refresh()
 inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1)   : coc#refresh()
 
