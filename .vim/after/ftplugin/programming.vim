@@ -24,16 +24,20 @@ nnoremap <silent>         <leader>w   :<C-u>CocDiagnostics<CR>
 nnoremap <silent>         <leader>W   :<C-u>lcl<CR>
 nnoremap <silent>         [w          :<C-u>lprev<CR>
 nnoremap <silent>         ]w          :<C-u>lnext<CR>
+nnoremap <silent>         ]W          :<C-u>lfirst<CR>
+nnoremap <silent>         [W          :<C-u>llast<CR>
 nnoremap <silent>         <leader>q   :<C-u>copen<CR>
 nnoremap <silent>         <leader>Q   :<C-u>ccl<CR>
 nnoremap <silent>         [q          :<C-u>cprev<CR>
 nnoremap <silent>         ]q          :<C-u>cnext<CR>
+nnoremap <silent>         ]Q          :<C-u>cfirst<CR>
+nnoremap <silent>         [Q          :<C-u>clast<CR>
 nnoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
 nnoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
 inoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
 inoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
 inoremap <silent><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><expr>   <Esc>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<Esc>"
+inoremap <silent><expr>   <C-D>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<C-D>"
 inoremap <silent>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
 inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1)   : coc#refresh()
 inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1)   : coc#refresh()

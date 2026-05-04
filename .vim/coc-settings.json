@@ -1,5 +1,6 @@
 {
   "suggest.autoTrigger": "none",
+  "signature.enable": false,
   "diagnostic.enableMessage": "jump",
   "semanticTokens.enable": true,
   "semanticTokens.filetypes": ["c", "cpp", "cs"],

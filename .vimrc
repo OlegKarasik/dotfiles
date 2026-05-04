@@ -8,6 +8,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'OlegKarasik/vim-cmake-naive'
 Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
+Plug 'OlegKarasik/vim-remote-naive'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'puremourning/vimspector'
 

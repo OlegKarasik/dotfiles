@@ -11,4 +11,4 @@ setlocal shiftwidth=2
 setlocal tabstop=2
 
 " (configure quick command to remap all links)
-nnoremap <silent><expr> <leader>cm vmarkdown_links_as_references#convert()
+nnoremap <silent> <leader>ul <Plug>(MarkdownLinksAsReferences)
