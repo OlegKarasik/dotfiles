@@ -53,10 +53,6 @@ let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 " Configuring Macro and Hotkeys
 "
 " (basic mappings)
-inoremap <C-H>      <left>
-inoremap <C-L>      <right>
-inoremap <C-J>      <down>
-inoremap <C-K>      <up>
 inoremap <C-@>      <ENTER>
 nnoremap <F1>       "=strftime("%F")<CR>P
 nnoremap <F2>       :wa<Bar>exe "mksession! " .. v:this_session<CR>

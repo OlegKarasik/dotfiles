@@ -10,8 +10,6 @@ setlocal tabstop=2
 let g:coc_disable_transparent_cursor = 1
 
 " (coc.nvim: hotkeys)
-nnoremap <silent><nowait> [g          <Plug>(coc-diagnostic-prev)
-nnoremap <silent><nowait> ]g          <Plug>(coc-diagnostic-next)
 nnoremap <silent><nowait> gd          <Plug>(coc-definition)
 nnoremap <silent><nowait> gD          <Plug>(coc-implementation)
 nnoremap <silent><nowait> gr          <Plug>(coc-references)
@@ -20,24 +18,25 @@ nnoremap <silent><nowait> gi          :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <leader>rn  <Plug>(coc-rename)
 nnoremap <silent><nowait> <leader>rq  <Plug>(coc-codeaction)
 nnoremap <silent><nowait> <leader>re  <Plug>(coc-codeaction-refactor)
-nnoremap <silent>         <leader>w   :<C-u>CocDiagnostics<CR>
-nnoremap <silent>         <leader>W   :<C-u>lcl<CR>
-nnoremap <silent>         [w          :<C-u>lprev<CR>
-nnoremap <silent>         ]w          :<C-u>lnext<CR>
-nnoremap <silent>         ]W          :<C-u>lfirst<CR>
-nnoremap <silent>         [W          :<C-u>llast<CR>
-nnoremap <silent>         <leader>q   :<C-u>copen<CR>
-nnoremap <silent>         <leader>Q   :<C-u>ccl<CR>
-nnoremap <silent>         [q          :<C-u>cprev<CR>
-nnoremap <silent>         ]q          :<C-u>cnext<CR>
-nnoremap <silent>         ]Q          :<C-u>cfirst<CR>
-nnoremap <silent>         [Q          :<C-u>clast<CR>
-nnoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
-nnoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
-inoremap <silent><expr>   <C-W>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
-inoremap <silent><expr>   <C-Q>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
+nnoremap <silent><nowait> <leader>w   :<C-u>CocDiagnostics<CR>
+nnoremap <silent><nowait> <leader>W   :<C-u>lcl<CR>
+nnoremap <silent><nowait> [w          <Plug>(coc-diagnostic-prev)
+nnoremap <silent><nowait> ]w          <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait> ]W          :<C-u>lfirst<CR>
+nnoremap <silent><nowait> [W          :<C-u>llast<CR>
+nnoremap <silent><nowait> <leader>q   :<C-u>copen<CR>
+nnoremap <silent><nowait> <leader>Q   :<C-u>ccl<CR>
+nnoremap <silent><nowait> [q          :<C-u>cprev<CR>
+nnoremap <silent><nowait> ]q          :<C-u>cnext<CR>
+nnoremap <silent><nowait> ]Q          :<C-u>cfirst<CR>
+nnoremap <silent><nowait> [Q          :<C-u>clast<CR>
+nnoremap <silent>         <C-Q>       <C-R>=coc#pum#visible() ? coc#pum#cancel() : coc#float#has_float() ? coc#float#close_all() : "\<C-Q>"<CR>
+nnoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
+nnoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
+inoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
+inoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
 inoremap <silent><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><expr>   <C-D>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<C-D>"
+inoremap <silent><expr>   <C-Q>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<C-Q>"
 inoremap <silent>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
 inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1)   : coc#refresh()
 inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1)   : coc#refresh()
