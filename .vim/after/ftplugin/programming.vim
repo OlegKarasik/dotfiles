@@ -30,16 +30,16 @@ nnoremap <silent><nowait> [q          :<C-u>cprev<CR>
 nnoremap <silent><nowait> ]q          :<C-u>cnext<CR>
 nnoremap <silent><nowait> ]Q          :<C-u>cfirst<CR>
 nnoremap <silent><nowait> [Q          :<C-u>clast<CR>
-nnoremap <silent>         <C-Q>       <C-R>=coc#pum#visible() ? coc#pum#cancel() : coc#float#has_float() ? coc#float#close_all() : "\<C-Q>"<CR>
-nnoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
-nnoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
-inoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-W>"
-inoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-Q>"
+nnoremap <silent>         <C-Q>       :call coc#float#close_all() \| redraw!<CR>
+nnoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
+nnoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
+inoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
+inoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
 inoremap <silent><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><expr>   <C-Q>       coc#pum#visible() ? coc#pum#cancel()  : coc#float#has_float() ? coc#float#close_all(): "\<C-Q>"
+inoremap <silent><expr>   <C-Q>       coc#float#close_all()
 inoremap <silent>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
-inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1)   : coc#refresh()
-inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1)   : coc#refresh()
+inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
+inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
 
 " (vimspecter: hotkeys)
 nnoremap <leader>de :call vimspector#Launch()<CR>

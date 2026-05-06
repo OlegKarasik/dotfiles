@@ -27,3 +27,6 @@ fi
 if [ ! -f "$HOME/.vim/coc-settings.json" ]; then
   ln -s ".vim/coc-settings.json" "$HOME/.vim/coc-settings.json"
 fi
+if [ ! -f "$HOME/.vimrc" ]; then
+  ln -s ".vimrc" "$HOME/.vimrc"
+fi
