@@ -28,6 +28,7 @@ set signcolumn=no
 set termguicolors
 set showcmd
 set nocompatible
+set nojoinspaces
 set cul
 
 " (do not store global and local values inside a session, and folds)

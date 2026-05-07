@@ -5,16 +5,17 @@ setlocal foldmethod=syntax
 setlocal foldlevel=10
 setlocal shiftwidth=2
 setlocal tabstop=2
+setlocal formatoptions=rjcq
 
 " (coc.nvim: configuration)
 let g:coc_disable_transparent_cursor = 1
 
 " (coc.nvim: hotkeys)
 nnoremap <silent><nowait> gd          <Plug>(coc-definition)
-nnoremap <silent><nowait> gD          <Plug>(coc-implementation)
+nnoremap <silent><nowait> gi          <Plug>(coc-implementation)
 nnoremap <silent><nowait> gr          <Plug>(coc-references)
-nnoremap <silent><nowait> gu          :call <SID>show_diagnostic()<CR>
-nnoremap <silent><nowait> gi          :call <SID>show_documentation()<CR>
+nnoremap <silent><nowait> I           :call <SID>show_diagnostic()<CR>
+nnoremap <silent><nowait> K           :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait> <leader>rn  <Plug>(coc-rename)
 nnoremap <silent><nowait> <leader>rq  <Plug>(coc-codeaction)
 nnoremap <silent><nowait> <leader>re  <Plug>(coc-codeaction-refactor)
@@ -68,10 +69,10 @@ endfunction
 
 " (coc.nvim: configure information about the symbol)
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
