@@ -1,5 +1,5 @@
 # Create directories
-#
+#%USERPROFILE%\vimfiles
 if [ ! -d "$HOME/.vim/after/ftplugin" ]; then
   mkdir -p "$HOME/.vim/after/ftplugin"
 fi
