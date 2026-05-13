@@ -1,10 +1,10 @@
 # Create directories
 #
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\ftplugin")) {
-  New-Item -Path "%USERPROFILE%\vimfiles\after\ftplugin" -ItemType Directory;
+if (-not (Test-Path -Path "$env:USERPROFILE\vimfiles\after\ftplugin" -PathType Container)) {
+  New-Item -Path "$env:USERPROFILE\vimfiles\after\ftplugin" -ItemType Directory;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\syntax")) {
-  New-Item -Path "%USERPROFILE%\vimfiles\after\syntax" -ItemType Directory;
+if (-not (Test-Path -Path "$env:USERPROFILE\vimfiles\after\syntax" -PathType Container)) {
+  New-Item -Path "$env:USERPROFILE\vimfiles\after\syntax" -ItemType Directory;
 }
 
 # Source script directory
@@ -13,21 +13,27 @@ $SOURCE=$PSScriptRoot
 
 # Link files from the repository
 #
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\ftplugin\cpp.vim" -Leaf)) {
-  New-Item -Value "$SOURCE\.vim\after\ftplugin\cpp.vim" -Path "%USERPROFILE%\vimfiles\after\ftplugin\cpp.vim" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\after\ftplugin\cpp.vim" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\after\ftplugin\cpp.vim" -Force;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\ftplugin\markdown.vim" -Leaf)) {
-  New-Item -Value "$SOURCE\.vim\after\ftplugin\markdown.vim" -Path "%USERPROFILE%\vimfiles\after\ftplugin\markdown.vim" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\after\ftplugin\markdown.vim" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\after\ftplugin\markdown.vim" -Force;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\ftplugin\programming.vim" -Leaf)) {
-  New-Item -Value "$SOURCE\.vim\after\ftplugin\programming.vim" -Path "%USERPROFILE%\vimfiles\after\ftplugin\programming.vim" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\after\ftplugin\programming.vim" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\after\ftplugin\programming.vim" -Force;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\after\syntax\markdown.vim" -Leaf)) {
-  New-Item -Value "$SOURCE\.vim\after\syntax\markdown.vim" -Path "%USERPROFILE%\vimfiles\after\syntax\markdown.vim" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\after\syntax\markdown.vim" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\after\syntax\markdown.vim" -Force;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\coc-settings.json" -Leaf)) {
-  New-Item -Value "$SOURCE\.vim\coc-settings.json" -Path "%USERPROFILE%\vimfiles\coc-settings.json" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\coc-settings.json" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\coc-settings.json" -Force;
 }
-if (-not (Test-Path -Path "%USERPROFILE%\vimfiles\_vimrc" -Leaf)) {
-  New-Item -Value "$SOURCE\.vimrc" -Path "%USERPROFILE%\vimfiles\_vimrc" -ItemType HardLink;
+if (Test-Path -Path "$env:USERPROFILE\vimfiles\vimrc" -PathType Leaf) {
+  Remove-Item -Path "$env:USERPROFILE\vimfiles\vimrc" -Force;
 }
+New-Item -Value "$SOURCE\.vimrc" -Path "$env:USERPROFILE\vimfiles\vimrc" -ItemType HardLink;
+New-Item -Value "$SOURCE\.vim\coc-settings.json" -Path "$env:USERPROFILE\vimfiles\coc-settings.json" -ItemType HardLink;
+New-Item -Value "$SOURCE\.vim\after\syntax\markdown.vim" -Path "$env:USERPROFILE\vimfiles\after\syntax\markdown.vim" -ItemType HardLink;
+New-Item -Value "$SOURCE\.vim\after\ftplugin\programming.vim" -Path "$env:USERPROFILE\vimfiles\after\ftplugin\programming.vim" -ItemType HardLink;
+New-Item -Value "$SOURCE\.vim\after\ftplugin\markdown.vim" -Path "$env:USERPROFILE\vimfiles\after\ftplugin\markdown.vim" -ItemType HardLink;
+New-Item -Value "$SOURCE\.vim\after\ftplugin\cpp.vim" -Path "$env:USERPROFILE\vimfiles\after\ftplugin\cpp.vim" -ItemType HardLink;
