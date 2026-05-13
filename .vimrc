@@ -31,6 +31,12 @@ set nocompatible
 set nojoinspaces
 set cul
 
+" (ensure UNDO is possible after buffer is written)
+if has('persistent_undo')      
+  set undofile                
+  set undodir=$HOME/.vim/undo
+endif
+
 " (do not store global and local values inside a session, and folds)
 set ssop-=options
 set ssop-=folds
@@ -59,7 +65,8 @@ nnoremap <F1>       "=strftime("%F")<CR>P
 nnoremap <F2>       :wa<Bar>exe "mksession! " .. v:this_session<CR>
 nnoremap <leader>f  :Ex<CR>
 nnoremap <leader>b  <Plug>(BuffersList) 
-nnoremap <NL>       i<CR><ESC>
+nnoremap S          i<CR><ESC>
+nnoremap s          a<CR><ESC>
 
 " (plugin: EasyAlign)
 nnoremap <silent>ga <Plug>(EasyAlign)
