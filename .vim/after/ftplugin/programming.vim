@@ -6,56 +6,46 @@ setlocal foldlevel=10
 setlocal shiftwidth=2
 setlocal tabstop=2
 setlocal formatoptions=rjcq
+setlocal smartindent
 
 " (coc.nvim: configuration)
 let g:coc_disable_transparent_cursor = 1
 
+" (coc.nvim: substitute tag function)
+set tagfunc=CocTagFunc
+
 " (coc.nvim: hotkeys)
-nnoremap <silent><nowait> gd          <Plug>(coc-definition)
-nnoremap <silent><nowait> gi          <Plug>(coc-implementation)
-nnoremap <silent><nowait> gr          <Plug>(coc-references)
-nnoremap <silent><nowait> I           :call <SID>show_diagnostic()<CR>
-nnoremap <silent><nowait> K           :call <SID>show_documentation()<CR>
-nnoremap <silent><nowait> <leader>rn  <Plug>(coc-rename)
-nnoremap <silent><nowait> <leader>rq  <Plug>(coc-codeaction)
-nnoremap <silent><nowait> <leader>re  <Plug>(coc-codeaction-refactor)
-nnoremap <silent><nowait> <leader>w   :<C-u>CocDiagnostics<CR>
-nnoremap <silent><nowait> <leader>W   :<C-u>lcl<CR>
-nnoremap <silent><nowait> [w          <Plug>(coc-diagnostic-prev)
-nnoremap <silent><nowait> ]w          <Plug>(coc-diagnostic-next)
-nnoremap <silent><nowait> ]W          :<C-u>lfirst<CR>
-nnoremap <silent><nowait> [W          :<C-u>llast<CR>
-nnoremap <silent><nowait> <leader>q   :<C-u>copen<CR>
-nnoremap <silent><nowait> <leader>Q   :<C-u>ccl<CR>
-nnoremap <silent><nowait> [q          :<C-u>cprev<CR>
-nnoremap <silent><nowait> ]q          :<C-u>cnext<CR>
-nnoremap <silent><nowait> ]Q          :<C-u>cfirst<CR>
-nnoremap <silent><nowait> [Q          :<C-u>clast<CR>
-nnoremap <silent>         <C-H>       :call coc#float#close_all() \| redraw!<CR>
-nnoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
-nnoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
-inoremap <silent><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
-inoremap <silent><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
-inoremap <silent><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><expr>   <C-Q>       coc#float#close_all()
-inoremap <silent>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
-inoremap <silent><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
-inoremap <silent><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
-
-" (vimspecter: hotkeys)
-nnoremap <leader>de :call vimspector#Launch()<CR>
-nnoremap <leader>dE :call vimspector#Reset()<CR>
-nnoremap <leader>dt :call vimspector#ToggleBreakpoint()<CR>
-nnoremap <leader>dT :call vimspector#ClearBreakpoints()<CR>
-nnoremap <leader>dp <Plug>VimspectorPause
-nnoremap <leader>di <Plug>VimspectorBalloonEval
-nnoremap <leader>dc <Plug>VimspectorContinue
-
-nnoremap <F5>       <Plug>VimspectorContinue
-nnoremap <F8>       <Plug>VimspectorRunToCursor
-nnoremap <F10>      <Plug>VimspectorStepOver
-nnoremap <F11>     	<Plug>VimspectorStepInto
-nnoremap <F12>     	<Plug>VimspectorStepOut
+nnoremap <silent><nowait>         gd          <Plug>(coc-definition)
+nnoremap <silent><nowait>         gy          <Plug>(coc-type-definition)
+nnoremap <silent><nowait>         gi          <Plug>(coc-implementation)
+nnoremap <silent><nowait>         gr          <Plug>(coc-references)
+nnoremap <silent><nowait>         gu          :call <SID>show_diagnostic()<CR>
+nnoremap <silent><nowait>         K           :call <SID>show_documentation()<CR>
+nnoremap <silent><nowait>         gcr         <Plug>(coc-rename)
+nnoremap <silent><nowait>         gcq         <Plug>(coc-codeaction)
+nnoremap <silent><nowait>         gcf         <Plug>(coc-codeaction-refactor)
+nnoremap <silent><nowait>         <leader>w   :<C-u>CocDiagnostics<CR>
+nnoremap <silent><nowait>         <leader>W   :<C-u>lcl<CR>
+nnoremap <silent><nowait>         [w          <Plug>(coc-diagnostic-prev)
+nnoremap <silent><nowait>         ]w          <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait>         ]W          :<C-u>lfirst<CR>
+nnoremap <silent><nowait>         [W          :<C-u>llast<CR>
+nnoremap <silent><nowait>         <leader>q   :<C-u>copen<CR>
+nnoremap <silent><nowait>         <leader>Q   :<C-u>ccl<CR>
+nnoremap <silent><nowait>         [q          :<C-u>cprev<CR>
+nnoremap <silent><nowait>         ]q          :<C-u>cnext<CR>
+nnoremap <silent><nowait>         ]Q          :<C-u>cfirst<CR>
+nnoremap <silent><nowait>         [Q          :<C-u>clast<CR>
+nnoremap <silent><nowait>         <C-H>       :call coc#float#close_all() \| redraw!<CR>
+nnoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
+nnoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
+inoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
+inoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
+inoremap <silent><nowait><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
+inoremap <silent><nowait><expr>   <C-H>       coc#float#close_all()
+inoremap <silent><nowait>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
+inoremap <silent><nowait><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
+inoremap <silent><nowait><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
 
 " (coc.nvim: configure signature help)
 function! s:show_signature()

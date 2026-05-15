@@ -96,7 +96,6 @@ set shiftwidth=2
 set tabstop=2
 
 set autoindent
-set smartindent
 set expandtab
 
 " (recognise .txt files like markdown and configure them)
