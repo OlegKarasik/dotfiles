@@ -5,12 +5,13 @@ call plug#begin()
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/vim-easy-align'
+Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'OlegKarasik/vim-cmake-naive'
 Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
 Plug 'OlegKarasik/vim-remote-naive'
-Plug 'dracula/vim', {'as': 'dracula'}
-Plug 'puremourning/vimspector'
+Plug 'OlegKarasik/vim-windows-naive'
 
 call plug#end()
 filetype plugin indent on

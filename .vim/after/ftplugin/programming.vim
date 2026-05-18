@@ -11,19 +11,15 @@ setlocal smartindent
 " (coc.nvim: configuration)
 let g:coc_disable_transparent_cursor = 1
 
-" (coc.nvim: substitute tag function)
-set tagfunc=CocTagFunc
-
 " (coc.nvim: hotkeys)
 nnoremap <silent><nowait>         gd          <Plug>(coc-definition)
-nnoremap <silent><nowait>         gy          <Plug>(coc-type-definition)
-nnoremap <silent><nowait>         gi          <Plug>(coc-implementation)
+nnoremap <silent><nowait>         gD          <Plug>(coc-implementation)
 nnoremap <silent><nowait>         gr          <Plug>(coc-references)
-nnoremap <silent><nowait>         gu          :call <SID>show_diagnostic()<CR>
-nnoremap <silent><nowait>         K           :call <SID>show_documentation()<CR>
+nnoremap <silent><nowait>         gcd         :call <SID>show_diagnostic()<CR>
+nnoremap <silent><nowait>         gcD         :call <SID>show_documentation()<CR>
 nnoremap <silent><nowait>         gcr         <Plug>(coc-rename)
 nnoremap <silent><nowait>         gcq         <Plug>(coc-codeaction)
-nnoremap <silent><nowait>         gcf         <Plug>(coc-codeaction-refactor)
+nnoremap <silent><nowait>         gcQ         <Plug>(coc-codeaction-refactor)
 nnoremap <silent><nowait>         <leader>w   :<C-u>CocDiagnostics<CR>
 nnoremap <silent><nowait>         <leader>W   :<C-u>lcl<CR>
 nnoremap <silent><nowait>         [w          <Plug>(coc-diagnostic-prev)
@@ -39,13 +35,13 @@ nnoremap <silent><nowait>         [Q          :<C-u>clast<CR>
 nnoremap <silent><nowait>         <C-H>       :call coc#float#close_all() \| redraw!<CR>
 nnoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
 nnoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
+inoremap <silent><nowait><expr>   <C-H>       coc#float#close_all()
 inoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
 inoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
-inoremap <silent><nowait><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
-inoremap <silent><nowait><expr>   <C-H>       coc#float#close_all()
 inoremap <silent><nowait>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
 inoremap <silent><nowait><expr>   <C-P>       coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
 inoremap <silent><nowait><expr>   <C-N>       coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
+inoremap <silent><nowait><expr>   <Enter>     coc#pum#visible() ? coc#pum#confirm() : "\<Enter>"
 
 " (coc.nvim: configure signature help)
 function! s:show_signature()
@@ -61,8 +57,6 @@ endfunction
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
   endif
 endfunction
 
