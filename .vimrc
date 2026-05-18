@@ -58,6 +58,12 @@ let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 "
 " End Configuring Netrw
 
+" Configuring CTRL-P
+"
+let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|build)$'
+"
+" End Configuring CTRL-P
+
 " Configuring Macro and Hotkeys
 "
 " (basic mappings)
