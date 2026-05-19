@@ -12,7 +12,8 @@ fi
 
 # Source script directory
 #
-SOURCE=$(dirname "$0")
+SOURCE=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+echo $SOURCE
 
 # Link files from the repository
 #
@@ -33,4 +34,11 @@ if [ ! -f "$HOME/.vim/coc-settings.json" ]; then
 fi
 if [ ! -f "$HOME/.vimrc" ]; then
   ln -sf "$SOURCE/.vimrc" "$HOME/.vimrc"
+fi
+if [ ! -f "$HOME/.gitignore" ]; then
+  ln -sf "$SOURCE/.gitignore" "$HOME/.gitignore"
+
+  # Setup global ignore file
+  # 
+  git config --global core.excludesfile "$SOURCE/.gitignore"
 fi
