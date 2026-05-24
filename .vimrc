@@ -12,6 +12,7 @@ Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
 Plug 'OlegKarasik/vim-remote-naive'
 Plug 'OlegKarasik/vim-windows-naive'
+Plug 'OlegKarasik/vim-lsp-naive'
 
 call plug#end()
 filetype plugin indent on
@@ -60,6 +61,7 @@ let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 
 " Configuring CTRL-P
 "
+let g:ctrlp_working_path_mode = ''
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|build)$'
 "
 " End Configuring CTRL-P
@@ -72,6 +74,7 @@ nnoremap <F1>       "=strftime("%F")<CR>P
 nnoremap <F2>       :wa<Bar>exe "mksession! " .. v:this_session<CR>
 nnoremap <leader>f  :Ex<CR>
 nnoremap <leader>b  <Plug>(BuffersList) 
+nnoremap <leader>m  <Plug>(MaximizeToggleActiveWindow)
 nnoremap S          i<CR><ESC>
 nnoremap s          a<CR><ESC>
 
