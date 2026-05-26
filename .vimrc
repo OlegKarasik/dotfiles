@@ -32,6 +32,8 @@ set showcmd
 set nocompatible
 set nojoinspaces
 set cul
+set ttyfast
+set belloff=all
 
 " (ensure UNDO is possible after buffer is written)
 if has('persistent_undo')      
