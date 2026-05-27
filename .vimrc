@@ -35,6 +35,8 @@ set cul
 set ttyfast
 set belloff=all
 
+let mapleader=' '
+
 " (ensure UNDO is possible after buffer is written)
 if has('persistent_undo')      
   set undofile                
