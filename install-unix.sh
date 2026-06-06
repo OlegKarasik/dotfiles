@@ -17,6 +17,9 @@ echo $SOURCE
 
 # Link files from the repository
 #
+if [ ! -f "$HOME/.vim/after/ftplugin/ps1.vim" ]; then
+  ln -sf "$SOURCE/.vim/after/ftplugin/ps1.vim" "$HOME/.vim/after/ftplugin/ps1.vim"
+fi
 if [ ! -f "$HOME/.vim/after/ftplugin/cpp.vim" ]; then
   ln -sf "$SOURCE/.vim/after/ftplugin/cpp.vim" "$HOME/.vim/after/ftplugin/cpp.vim"
 fi
