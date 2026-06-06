@@ -7,5 +7,6 @@
   "coc.preferences.semanticTokensHighlights": true,
   "clangd.compilationDatabasePath": "build",
   "floatFactory.floatConfig.border": true,
-  "floatFactory.floatConfig.rounded": true
+  "floatFactory.floatConfig.rounded": true,
+  "dotnet.projects.enableAutomaticRestore": false
 }
