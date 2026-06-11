@@ -37,6 +37,13 @@ set belloff=all
 
 let mapleader=' '
 
+" (ensure to enable basic options on Windows)
+if has('win32')
+    " Your Windows-only configurations go here
+  set renderoptions=directx
+  set nofixeol
+endif
+
 " (ensure UNDO is possible after buffer is written)
 if has('persistent_undo')      
   set undofile                
