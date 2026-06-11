@@ -32,10 +32,10 @@ nnoremap <silent><nowait>         [q          :<C-u>cprev<CR>
 nnoremap <silent><nowait>         ]q          :<C-u>cnext<CR>
 nnoremap <silent><nowait>         ]Q          :<C-u>cfirst<CR>
 nnoremap <silent><nowait>         [Q          :<C-u>clast<CR>
-nnoremap <silent><nowait>         <C-H>       :call coc#float#close_all() \| redraw!<CR>
+nnoremap <silent><nowait>         <C-L>       :call coc#float#close_all() \| redraw!<CR>
 nnoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
 nnoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
-inoremap <silent><nowait><expr>   <C-H>       coc#float#close_all()
+inoremap <silent><nowait><expr>   <C-L>       coc#float#close_all()
 inoremap <silent><nowait><expr>   <C-J>       coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<C-J>"
 inoremap <silent><nowait><expr>   <C-K>       coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<C-K>"
 inoremap <silent><nowait>         <C-S>       <C-R>=CocActionAsync('showSignatureHelp')<CR>
