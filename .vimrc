@@ -40,7 +40,7 @@ let mapleader=' '
 " (ensure to enable basic options on Windows)
 if has('win32')
     " Your Windows-only configurations go here
-  set renderoptions=directx
+  set renderoptions=type:directx
   set nofixeol
 endif
 
