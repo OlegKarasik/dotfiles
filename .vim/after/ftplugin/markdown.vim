@@ -1,7 +1,3 @@
-" (spelling configuration for markdown)
-"
-set spell spelllang=en_gb,ru_ru
-
 " (setting up syntax highlight in markdown)
 "
 let g:markdown_fenced_languages = [
@@ -9,11 +5,12 @@ let g:markdown_fenced_languages = [
       \ 'json', 'graphql',
       \]
 
-" (configure format options and textwidth)
+" (configure options)
+setlocal spell spelllang=en_gb,ru_ru
 setlocal formatoptions=tcqln 
 setlocal textwidth=82 
 setlocal shiftwidth=2
 setlocal tabstop=2
 
 " (configure quick command to remap all links)
-nnoremap <silent> <leader>ul <Plug>(MarkdownLinksAsReferences)
+nnoremap <buffer><silent> <leader>lar <Plug>(MarkdownLinksAsReferences)

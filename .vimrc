@@ -3,16 +3,22 @@
 filetype off
 call plug#begin()
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
+
 Plug 'junegunn/vim-easy-align'
-Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'ctrlpvim/ctrlp.vim'
+
 Plug 'OlegKarasik/vim-cmake-naive'
 Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
 Plug 'OlegKarasik/vim-remote-naive'
 Plug 'OlegKarasik/vim-windows-naive'
 Plug 'OlegKarasik/vim-lsp-naive'
+
+Plug 'dracula/vim', {'as': 'dracula'}
 
 call plug#end()
 filetype plugin indent on
@@ -39,7 +45,6 @@ let mapleader=' '
 
 " (ensure to enable basic options on Windows)
 if has('win32')
-    " Your Windows-only configurations go here
   set renderoptions=type:directx
   set nofixeol
 endif
@@ -76,6 +81,61 @@ let g:ctrlp_working_path_mode = ''
 let g:ctrlp_custom_ignore     = '\v[\/](\.(git|hg|svn)|build)$'
 "
 " End Configuring CTRL-P
+
+" Configuring asyncomplete
+"
+let g:asyncomplete_auto_popup = 0
+
+inoremap <silent><nowait><expr> <C-P>   pumvisible() ? "\<C-P>" : asyncomplete#force_refresh()
+inoremap <silent><nowait><expr> <C-N>   pumvisible() ? "\<C-N>" : asyncomplete#force_refresh()
+inoremap <silent><nowait><expr> <Enter> pumvisible() ? asyncomplete#close_popup() : "\<Enter>"
+"
+" End Configuring asyncomplete
+
+" Configuring vim-lsp
+"
+function! s:on_lsp_buffer_enabled() abort
+  " (vim-lsp: settings)
+  setlocal omnifunc=lsp#complete
+  setlocal tagfunc=lsp#tagfunc
+
+  " (vim-lsp: hotkeys)
+  nnoremap <buffer><silent><nowait>       gd          <Plug>(lsp-definition)
+  nnoremap <buffer><silent><nowait>       gD          <Plug>(lsp-implementation)
+  nnoremap <buffer><silent><nowait>       gr          <Plug>(lsp-references)
+  "nnoremap <buffer><silent><nowait>       ,           :call <SID>show_diagnostic()<CR>
+  nnoremap <buffer><silent><nowait>       K           <plug>(lsp-hover-float)
+  nnoremap <buffer><silent><nowait>       <leader>rn  <Plug>(lsp-rename)
+  nnoremap <buffer><silent><nowait>       <leader>rf  <Plug>(lsp-code-lens)
+  nnoremap <buffer><silent><nowait>       <leader>qa  <Plug>(lsp-code-action-float)
+  nnoremap <buffer><silent><nowait>       <leader>dl  <Plug>(lsp-document-diagnostics)
+  nnoremap <buffer><silent><nowait>       <leader>ss  <Plug>(lsp-workspace-symbol-search)
+  nnoremap <buffer><silent><nowait>       [e          <Plug>(lsp-previous-error)
+  nnoremap <buffer><silent><nowait>       ]e          <Plug>(lsp-next-error)
+  nnoremap <buffer><silent><nowait>       [w          <Plug>(lsp-previous-warning)
+  nnoremap <buffer><silent><nowait>       ]w          <Plug>(lsp-next-warning)
+  nnoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
+  nnoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
+  nnoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
+  inoremap <buffer><silent><nowait><expr> <C-L>       lsp#scroll(+4)
+  inoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(-4)
+  " inoremap <buffer><silent><nowait> <C-S>       <Plug>(lsp-signature-help)
+endfunction
+
+" (vim-lsp: global configuration)
+let g:lsp_semantic_enabled = 1
+let g:lsp_document_highlight_enabled = 0
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_document_code_action_signs_enabled = 0
+
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+"
+" End Configuring vim-lsp
 
 " Configuring Macro and Hotkeys
 "
@@ -124,7 +184,12 @@ autocmd FileType text
       \ | setlocal syntax=markdown
 
 " (configure settings for code files)
-autocmd FileType cpp,cs 
-      \ :runtime! ftplugin/programming.vim 
+autocmd FileType cpp,cs,ps1 
+      \   setlocal signcolumn=yes
+      \ | setlocal foldmethod=syntax
+      \ | setlocal foldlevel=10
+      \ | setlocal formatoptions=rjcq
+      \ | setlocal smartindent
+      \ | setlocal number
 "
 " End Configuring Formatting
