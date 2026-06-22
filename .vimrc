@@ -106,7 +106,7 @@ function! s:on_lsp_buffer_enabled() abort
   "nnoremap <buffer><silent><nowait>       ,           :call <SID>show_diagnostic()<CR>
   nnoremap <buffer><silent><nowait>       K           <plug>(lsp-hover-float)
   nnoremap <buffer><silent><nowait>       <leader>rn  <Plug>(lsp-rename)
-  nnoremap <buffer><silent><nowait>       <leader>rf  <Plug>(lsp-code-lens)
+  nnoremap <buffer><silent><nowait>       <leader>qf  <Plug>(lsp-code-lens)
   nnoremap <buffer><silent><nowait>       <leader>qa  <Plug>(lsp-code-action-float)
   nnoremap <buffer><silent><nowait>       <leader>dl  <Plug>(lsp-document-diagnostics)
   nnoremap <buffer><silent><nowait>       <leader>ss  <Plug>(lsp-workspace-symbol-search)
@@ -114,21 +114,54 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer><silent><nowait>       ]e          <Plug>(lsp-next-error)
   nnoremap <buffer><silent><nowait>       [w          <Plug>(lsp-previous-warning)
   nnoremap <buffer><silent><nowait>       ]w          <Plug>(lsp-next-warning)
+  nnoremap <buffer><silent><nowait>       <C-S>       :LspSignatureHelp<Enter>
   nnoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
   nnoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
   nnoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
-  inoremap <buffer><silent><nowait><expr> <C-L>       lsp#scroll(+4)
-  inoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(-4)
-  " inoremap <buffer><silent><nowait> <C-S>       <Plug>(lsp-signature-help)
+  inoremap <buffer><silent><nowait>       <C-S>       <C-O>:LspSignatureHelp<Enter>
+  "inoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
+  inoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
+  inoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
 endfunction
 
 " (vim-lsp: global configuration)
+let g:lsp_auto_enable = 1
 let g:lsp_semantic_enabled = 1
+let g:lsp_signature_help_enabled = 0
 let g:lsp_document_highlight_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_signs_enabled = 1
 let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_async_completion = 1
+
+if executable('csharp-ls')
+  let g:lsp_setup_called_cs = []
+
+  function! HandleLspSetup()
+    let root = lsp#utils#path_to_uri(
+      \   lsp#utils#find_nearest_parent_file_directory(
+      \     lsp#utils#get_buffer_path(),
+      \     ['*.sln', '*.csproj', '.git', '.git/']
+      \   )
+      \ )
+
+    if index(g:lsp_setup_called_cs, root) < 0
+      call lsp#register_server({
+        \ 'name': 'csharp-ls',
+        \ 'cmd': {server_info->['csharp-ls', '--features', 'metadata-uris']},
+        \ 'allowlist': ['cs'],
+        \ 'root_uri': {server_info->root},
+        \ 'config': {},
+        \ 'workspace_config': {},
+        \ })
+
+      call add(g:lsp_setup_called_cs, root)
+    endif
+  endfunction
+
+  au User lsp_setup call HandleLspSetup()
+endif
 
 augroup lsp_install
     au!
@@ -152,7 +185,7 @@ nnoremap <leader>J  i<CR><ESC>
 nnoremap <silent>ga <Plug>(EasyAlign)
 vnoremap <silent>ga <Plug>(EasyAlign)
 "
-" End Configuring Maro and Hotkeys
+" End Configuring Macro and Hotkeys
 
 " Configuring Russian Keyboard
 "
