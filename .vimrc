@@ -142,7 +142,7 @@ if executable('csharp-ls')
     let root = lsp#utils#path_to_uri(
       \   lsp#utils#find_nearest_parent_file_directory(
       \     lsp#utils#get_buffer_path(),
-      \     ['*.sln', '*.csproj', '.git', '.git/']
+      \     ['*.slnx', '*.sln', '*.csproj', '.git', '.git/']
       \   )
       \ )
 
