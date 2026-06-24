@@ -1,7 +1,7 @@
 " (setting up syntax highlight in markdown)
 "
 let g:markdown_fenced_languages = [
-      \ 'c', 'cs', 'cpp',
+      \ 'c', 'cs', 'cpp', 'csharp',
       \ 'json', 'graphql',
       \]
 

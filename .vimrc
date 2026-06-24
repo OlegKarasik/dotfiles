@@ -138,6 +138,13 @@ let g:lsp_async_completion = 1
 if executable('csharp-ls')
   let g:lsp_setup_called_cs = []
 
+  function! HandleLspMetadataUrls(uri)
+    let l:res = lsp#request('csharp-ls', {
+        \ 'method': 'csharp/metadata',
+        \ 'params': { 'textDocument': { 'uri': a:uri } }
+        \ })
+  endfunction
+
   function! HandleLspSetup()
     let root = lsp#utils#path_to_uri(
       \   lsp#utils#find_nearest_parent_file_directory(
@@ -145,7 +152,9 @@ if executable('csharp-ls')
       \     ['*.slnx', '*.sln', '*.csproj', '.git', '.git/']
       \   )
       \ )
-
+    if empty(root)
+      root = getcwd()
+    endif
     if index(g:lsp_setup_called_cs, root) < 0
       call lsp#register_server({
         \ 'name': 'csharp-ls',
@@ -160,13 +169,20 @@ if executable('csharp-ls')
     endif
   endfunction
 
-  au User lsp_setup call HandleLspSetup()
+  augroup lsp_configure
+    au!
+    autocmd User lsp_setup call HandleLspSetup()
+    autocmd BufReadCmd csharp:/* call s:HandleLspMetadataUrls(expand("<amatch>"))
+  augroup END
 endif
 
 augroup lsp_install
-    au!
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:lsp_log_file = ''
+	let g:lsp_log_file = expand('~/vim-lsp.log')
 "
 " End Configuring vim-lsp
 
