@@ -1,10 +1,3 @@
-" (setting up syntax highlight in markdown)
-"
-let g:markdown_fenced_languages = [
-      \ 'c', 'cs', 'cpp', 'csharp',
-      \ 'json', 'graphql',
-      \]
-
 " (configure options)
 setlocal spell spelllang=en_gb,ru_ru
 setlocal formatoptions=tcqln 

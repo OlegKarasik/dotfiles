@@ -66,6 +66,15 @@ syntax on
 "
 " End Configuring Basics
 
+" Configure Markdown
+"
+let g:markdown_fenced_languages = [
+      \ 'c', 'cs', 'cpp', 'csharp=cs',
+      \ 'json', 'graphql',
+      \]
+"
+" End Configure Markdown
+
 " Configuring Netrw
 "
 let g:netrw_banner       = 0
@@ -153,7 +162,7 @@ if executable('csharp-ls')
       \   )
       \ )
     if empty(root)
-      root = getcwd()
+      let root = getcwd()
     endif
     if index(g:lsp_setup_called_cs, root) < 0
       call lsp#register_server({
