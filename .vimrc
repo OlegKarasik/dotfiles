@@ -171,7 +171,7 @@ if executable('csharp-ls')
         \ 'allowlist': ['cs'],
         \ 'root_uri': {server_info->root},
         \ 'config': {},
-        \ 'workspace_config': {},
+        \ 'workspace_config': { "csharp": { "analyzersEnabled": "true" } },
         \ })
 
       call add(g:lsp_setup_called_cs, root)
