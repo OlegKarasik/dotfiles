@@ -3,7 +3,7 @@
 filetype off
 call plug#begin()
 
-Plug 'prabirshrestha/vim-lsp'
+Plug 'OlegKarasik/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
@@ -14,9 +14,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'OlegKarasik/vim-cmake-naive'
 Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
-Plug 'OlegKarasik/vim-remote-naive'
 Plug 'OlegKarasik/vim-windows-naive'
-Plug 'OlegKarasik/vim-lsp-naive'
 
 Plug 'dracula/vim', {'as': 'dracula'}
 
@@ -144,6 +142,37 @@ let g:lsp_diagnostics_signs_enabled = 1
 let g:lsp_document_code_action_signs_enabled = 0
 let g:lsp_async_completion = 1
 
+function! FindRoot(path, patterns) abort
+  let path = a:path
+  if !isdirectory(path)
+    let path = fnamemodify(path, ':p:h')
+  endif
+
+  if len(a:patterns) == 1
+    let files = globpath(path, a:patterns[0], 0, 1)
+    if len(files) != 0
+      return path
+    endif
+
+    let parent = fnamemodify(path, ':p:h')
+    if parent == path
+      " It means we reached the root
+      return ''
+    endif
+
+    return FindRoot(fnamemodify(path, ':p:h'), a:patterns)
+  else
+    for l:pattern in a:patterns
+      let match = FindRoot(path, [l:pattern])
+      if match != ''
+        return match
+      endif
+    endfor
+
+    return ''
+  endif
+endfunction
+
 if executable('csharp-ls')
   let g:lsp_setup_called_cs = []
 
@@ -153,17 +182,17 @@ if executable('csharp-ls')
         \ 'params': { 'textDocument': { 'uri': a:uri } }
         \ })
   endfunction
-
+  
   function! HandleLspSetup()
-    let root = lsp#utils#path_to_uri(
-      \   lsp#utils#find_nearest_parent_file_directory(
-      \     lsp#utils#get_buffer_path(),
-      \     ['*.slnx', '*.sln', '*.csproj', '.git', '.git/']
-      \   )
-      \ )
+    let root = FindRoot(
+        \  lsp#utils#get_buffer_path(),
+        \  ['*.slnx', '*.sln', '*.csproj', '.git', '.git/']
+        \  )
     if empty(root)
       let root = getcwd()
     endif
+
+    let root = lsp#utils#path_to_uri(root)
     if index(g:lsp_setup_called_cs, root) < 0
       call lsp#register_server({
         \ 'name': 'csharp-ls',
@@ -190,8 +219,11 @@ augroup lsp_install
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+" Setting the border style for popups (need to be done explicitly)
+let g:lsp_popup_borderchars = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
+
 let g:lsp_log_file = ''
-	let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_log_file = expand('~/vim-lsp.log')
 "
 " End Configuring vim-lsp
 
