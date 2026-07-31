@@ -85,7 +85,8 @@ let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 " Configuring CTRL-P
 "
 let g:ctrlp_working_path_mode = ''
-let g:ctrlp_custom_ignore     = '\v[\/](\.(git|hg|svn)|build)$'
+let g:ctrlp_custom_ignore     = '\v[\/](\.(git|hg|svn)|build|node_modules|bin|obj)$'
+let g:ctrlp_max_files         = 0
 "
 " End Configuring CTRL-P
 
@@ -95,7 +96,7 @@ let g:asyncomplete_auto_popup = 0
 
 inoremap <silent><nowait><expr> <C-P>   pumvisible() ? "\<C-P>" : asyncomplete#force_refresh()
 inoremap <silent><nowait><expr> <C-N>   pumvisible() ? "\<C-N>" : asyncomplete#force_refresh()
-inoremap <silent><nowait><expr> <Enter> pumvisible() ? asyncomplete#close_popup() : "\<Enter>"
+inoremap <silent><nowait><expr> <Enter> pumvisible() ? asyncomplete#close_popup() : "\<ENTER>"
 "
 " End Configuring asyncomplete
 
@@ -121,11 +122,11 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer><silent><nowait>       ]e          <Plug>(lsp-next-error)
   nnoremap <buffer><silent><nowait>       [w          <Plug>(lsp-previous-warning)
   nnoremap <buffer><silent><nowait>       ]w          <Plug>(lsp-next-warning)
-  nnoremap <buffer><silent><nowait>       <C-S>       :LspSignatureHelp<Enter>
+  nnoremap <buffer><silent><nowait>       <C-S>       :LspSignatureHelp<ENTER>
   nnoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
   nnoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
   nnoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
-  inoremap <buffer><silent><nowait>       <C-S>       <C-O>:LspSignatureHelp<Enter>
+  inoremap <buffer><silent><nowait>       <C-S>       <C-O>:LspSignatureHelp<ENTER>
   "inoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
   inoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
   inoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
@@ -229,14 +230,23 @@ let g:lsp_log_file = expand('~/vim-lsp.log')
 
 " Configuring Macro and Hotkeys
 "
+"
+" (basic commands)
+"
+command! Cnext try | cnext | catch | cfirst | catch | endtry
+command! Cprev try | cprev | catch | clast  | catch | endtry
+
+"
 " (basic mappings)
-inoremap <C-@>      <ENTER>
-nnoremap <F1>       "=strftime("%F")<CR>P
-nnoremap <F2>       :wa<Bar>exe "mksession! " .. v:this_session<CR>
-nnoremap <leader>f  :Ex<CR>
-nnoremap <leader>b  <Plug>(BuffersList) 
-nnoremap <leader>m  <Plug>(MaximizeToggleActiveWindow)
-nnoremap <leader>J  i<CR><ESC>
+inoremap                  <C-@>        <ENTER>
+nnoremap                  <F1>         "=strftime("%F")<CR>P
+nnoremap                  <F2>         :wa<Bar>exe "mksession! " .. v:this_session<CR>
+nnoremap <silent><nowait> <leader>f    :Ex<CR>
+nnoremap <silent><nowait> <leader>b    <Plug>(BuffersList) 
+nnoremap <silent><nowait> <leader>m    <Plug>(MaximizeToggleActiveWindow)
+nnoremap <silent><nowait> <leader>J    i<CR><ESC>
+nnoremap <silent><nowait> [q           :Cprev<ENTER>
+nnoremap <silent><nowait> ]q           :Cnext<ENTER>
 
 " (plugin: EasyAlign)
 nnoremap <silent>ga <Plug>(EasyAlign)
