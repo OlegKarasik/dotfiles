@@ -79,6 +79,15 @@ let g:netrw_banner       = 0
 let g:netrw_winsize      = 30
 let g:netrw_browse_split = 0
 let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
+
+function! s:on_netrw_buffer_enabled() abort
+  nnoremap <buffer><nowait> mp :echo netrw#Expose("netrwmarkfilelist")<ENTER>
+endfunction
+
+augroup netrw_install
+  autocmd!
+  autocmd FileType netrw call s:on_netrw_buffer_enabled()
+augroup END
 "
 " End Configuring Netrw
 
@@ -223,8 +232,8 @@ augroup END
 " Setting the border style for popups (need to be done explicitly)
 let g:lsp_popup_borderchars = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
 
-let g:lsp_log_file = ''
-let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:lsp_log_file = ''
+" let g:lsp_log_file = expand('~/vim-lsp.log')
 "
 " End Configuring vim-lsp
 
@@ -241,7 +250,7 @@ command! Cprev try | cprev | catch | clast  | catch | endtry
 inoremap                  <C-@>        <ENTER>
 nnoremap                  <F1>         "=strftime("%F")<CR>P
 nnoremap                  <F2>         :wa<Bar>exe "mksession! " .. v:this_session<CR>
-nnoremap <silent><nowait> <leader>f    :Ex<CR>
+nnoremap <silent><nowait> <leader>f    :Lexplore %:p:h<CR>
 nnoremap <silent><nowait> <leader>b    <Plug>(BuffersList) 
 nnoremap <silent><nowait> <leader>m    <Plug>(MaximizeToggleActiveWindow)
 nnoremap <silent><nowait> <leader>J    i<CR><ESC>
