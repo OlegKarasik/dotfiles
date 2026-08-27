@@ -81,7 +81,8 @@ let g:netrw_browse_split = 0
 let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 
 function! s:on_netrw_buffer_enabled() abort
-  nnoremap <buffer><nowait> mp :echo netrw#Expose("netrwmarkfilelist")<ENTER>
+  nnoremap <buffer><nowait>          <leader>f   :q<ENTER>
+  nnoremap <silent><buffer><nowait>          mp  :echo netrw#Expose("netrwmarkfilelist")<ENTER>
 endfunction
 
 augroup netrw_install
