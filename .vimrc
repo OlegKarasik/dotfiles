@@ -3,18 +3,18 @@
 filetype off
 call plug#begin()
 
-Plug 'OlegKarasik/vim-lsp'
+Plug 'OlegKarasik/vim-lsp', { 'branch': 'vnext' } 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
 
+Plug 'puremourning/vimspector'
 Plug 'junegunn/vim-easy-align'
 Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'OlegKarasik/vim-cmake-naive'
 Plug 'OlegKarasik/vim-markdown-links-naive'
 Plug 'OlegKarasik/vim-buffers-naive'
-Plug 'OlegKarasik/vim-windows-naive'
 
 Plug 'dracula/vim', {'as': 'dracula'}
 
@@ -81,8 +81,8 @@ let g:netrw_browse_split = 0
 let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
 
 function! s:on_netrw_buffer_enabled() abort
-  nnoremap <buffer><nowait>          <leader>f   :q<ENTER>
-  nnoremap <silent><buffer><nowait>          mp  :echo netrw#Expose("netrwmarkfilelist")<ENTER>
+  nnoremap <buffer><nowait>          <leader>f   :bd<enter>
+  nnoremap <silent><buffer><nowait>          mp  :echo netrw#Expose("netrwmarkfilelist")<enter>
 endfunction
 
 augroup netrw_install
@@ -100,13 +100,23 @@ let g:ctrlp_max_files         = 0
 "
 " End Configuring CTRL-P
 
+" Configuring vimspector
+"
+nnoremap <buffer><silent><nowait> <leader>dr <plug>VimspectorContinue
+nnoremap <buffer><silent><nowait> <leader>db <plug>VimspectorToggleBreakpoint
+nnoremap <buffer><silent><nowait> <leader>do <plug>VimspectorStepOver
+nnoremap <buffer><silent><nowait> <leader>di <plug>VimspectorStepInto
+nnoremap <buffer><silent><nowait> <leader>dx :VimspectorReset<enter>
+"
+" End Configuring vimspector
+
 " Configuring asyncomplete
 "
 let g:asyncomplete_auto_popup = 0
 
 inoremap <silent><nowait><expr> <C-P>   pumvisible() ? "\<C-P>" : asyncomplete#force_refresh()
 inoremap <silent><nowait><expr> <C-N>   pumvisible() ? "\<C-N>" : asyncomplete#force_refresh()
-inoremap <silent><nowait><expr> <Enter> pumvisible() ? asyncomplete#close_popup() : "\<ENTER>"
+inoremap <silent><nowait><expr> <enter> pumvisible() ? asyncomplete#close_popup() : "\<enter>"
 "
 " End Configuring asyncomplete
 
@@ -118,25 +128,25 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal tagfunc=lsp#tagfunc
 
   " (vim-lsp: hotkeys)
-  nnoremap <buffer><silent><nowait>       gd          <Plug>(lsp-definition)
-  nnoremap <buffer><silent><nowait>       gD          <Plug>(lsp-implementation)
-  nnoremap <buffer><silent><nowait>       gr          <Plug>(lsp-references)
+  nnoremap <buffer><silent><nowait>       gd          <plug>(lsp-definition)
+  nnoremap <buffer><silent><nowait>       gD          <plug>(lsp-implementation)
+  nnoremap <buffer><silent><nowait>       gr          <plug>(lsp-references)
   "nnoremap <buffer><silent><nowait>       ,           :call <SID>show_diagnostic()<CR>
   nnoremap <buffer><silent><nowait>       K           <plug>(lsp-hover-float)
-  nnoremap <buffer><silent><nowait>       <leader>rn  <Plug>(lsp-rename)
-  nnoremap <buffer><silent><nowait>       <leader>qf  <Plug>(lsp-code-lens)
-  nnoremap <buffer><silent><nowait>       <leader>qa  <Plug>(lsp-code-action-float)
-  nnoremap <buffer><silent><nowait>       <leader>dl  <Plug>(lsp-document-diagnostics)
-  nnoremap <buffer><silent><nowait>       <leader>ss  <Plug>(lsp-workspace-symbol-search)
-  nnoremap <buffer><silent><nowait>       [e          <Plug>(lsp-previous-error)
-  nnoremap <buffer><silent><nowait>       ]e          <Plug>(lsp-next-error)
-  nnoremap <buffer><silent><nowait>       [w          <Plug>(lsp-previous-warning)
-  nnoremap <buffer><silent><nowait>       ]w          <Plug>(lsp-next-warning)
-  nnoremap <buffer><silent><nowait>       <C-S>       :LspSignatureHelp<ENTER>
-  nnoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
+  nnoremap <buffer><silent><nowait>       <leader>rn  <plug>(lsp-rename)
+  nnoremap <buffer><silent><nowait>       <leader>qf  <plug>(lsp-code-lens)
+  nnoremap <buffer><silent><nowait>       <leader>qa  <plug>(lsp-code-action-float)
+  nnoremap <buffer><silent><nowait>       <leader>dl  <plug>(lsp-document-diagnostics)
+  nnoremap <buffer><silent><nowait>       <leader>ss  <plug>(lsp-workspace-symbol-search)
+  nnoremap <buffer><silent><nowait>       [e          <plug>(lsp-previous-error)
+  nnoremap <buffer><silent><nowait>       ]e          <plug>(lsp-next-error)
+  nnoremap <buffer><silent><nowait>       [w          <plug>(lsp-previous-warning)
+  nnoremap <buffer><silent><nowait>       ]w          <plug>(lsp-next-warning)
+  nnoremap <buffer><silent><nowait>       <C-S>       :LspSignatureHelp<enter>
+  nnoremap <buffer><silent><nowait>       <C-L>       <plug>(lsp-float-close)
   nnoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
   nnoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
-  inoremap <buffer><silent><nowait>       <C-S>       <C-O>:LspSignatureHelp<ENTER>
+  inoremap <buffer><silent><nowait>       <C-S>       <C-O>:LspSignatureHelp<enter>
   "inoremap <buffer><silent><nowait>       <C-L>       <Plug>(lsp-float-close)
   inoremap <buffer><silent><nowait><expr> <C-J>       lsp#scroll(+4)
   inoremap <buffer><silent><nowait><expr> <C-K>       lsp#scroll(-4)
@@ -232,14 +242,10 @@ augroup END
 
 " Setting the border style for popups (need to be done explicitly)
 let g:lsp_popup_borderchars = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
-
-" let g:lsp_log_file = ''
-" let g:lsp_log_file = expand('~/vim-lsp.log')
 "
 " End Configuring vim-lsp
 
 " Configuring Macro and Hotkeys
-"
 "
 " (basic commands)
 "
@@ -248,19 +254,18 @@ command! Cprev try | cprev | catch | clast  | catch | endtry
 
 "
 " (basic mappings)
-inoremap                  <C-@>        <ENTER>
-nnoremap                  <F1>         "=strftime("%F")<CR>P
-nnoremap                  <F2>         :wa<Bar>exe "mksession! " .. v:this_session<CR>
-nnoremap <silent><nowait> <leader>f    :Lexplore %:p:h<CR>
-nnoremap <silent><nowait> <leader>b    <Plug>(BuffersList) 
-nnoremap <silent><nowait> <leader>m    <Plug>(MaximizeToggleActiveWindow)
-nnoremap <silent><nowait> <leader>J    i<CR><ESC>
-nnoremap <silent><nowait> [q           :Cprev<ENTER>
-nnoremap <silent><nowait> ]q           :Cnext<ENTER>
+inoremap                  <C-@>        <enter>
+nnoremap                  <F1>         "=strftime("%F")<cr>P
+nnoremap                  <F2>         :wa<Bar>exe "mksession! " .. v:this_session<cr>
+nnoremap <silent><nowait> <leader>f    :Ex %:p:h<cr>
+nnoremap <silent><nowait> <leader>b    <plug>(BuffersList)
+nnoremap <silent><nowait> <leader>J    i<cr><esc>
+nnoremap <silent><nowait> [q           :Cprev<enter>
+nnoremap <silent><nowait> ]q           :Cnext<enter>
 
 " (plugin: EasyAlign)
-nnoremap <silent>ga <Plug>(EasyAlign)
-vnoremap <silent>ga <Plug>(EasyAlign)
+nnoremap <silent>ga <plug>(EasyAlign)
+vnoremap <silent>ga <plug>(EasyAlign)
 "
 " End Configuring Macro and Hotkeys
 
