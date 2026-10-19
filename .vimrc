@@ -102,14 +102,14 @@ let g:ctrlp_max_files         = 0
 
 " Configuring vimspector
 "
-nnoremap <silent><nowait> <leader>dc  <plug>VimspectorContinue
-nnoremap <silent><nowait> <leader>db  <plug>VimspectorToggleBreakpoint
-nnoremap <silent><nowait> <leader>do  <plug>VimspectorStepOver
-nnoremap <silent><nowait> <leader>di  <plug>VimspectorStepInto
-nnoremap <silent><nowait> <leader>dt  <plug>VimspectorRunToCursor
-nnoremap <silent><nowait> <leader>dx  :VimspectorReset<enter>
-nnoremap <silent><nowait> <leader>dfi <plug>VimspectorUpFrame
-nnoremap <silent><nowait> <leader>dfo <plug>VimspectorDownFrame
+nnoremap <silent><nowait> <leader>dc <plug>VimspectorContinue
+nnoremap <silent><nowait> <leader>db <plug>VimspectorToggleBreakpoint
+nnoremap <silent><nowait> <leader>dn <plug>VimspectorStepOver
+nnoremap <silent><nowait> <leader>ds <plug>VimspectorStepInto
+nnoremap <silent><nowait> <leader>dr <plug>VimspectorRunToCursor
+nnoremap <silent><nowait> <leader>dx :VimspectorReset<enter>
+nnoremap <silent><nowait> <leader>di <plug>VimspectorUpFrame
+nnoremap <silent><nowait> <leader>do <plug>VimspectorDownFrame
 "
 " End Configuring vimspector
 
